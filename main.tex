@@ -1,0 +1,383 @@
+\documentclass[12pt,openany]{report}
+
+% ---------------- PACKAGES ----------------
+\usepackage[utf8]{inputenc}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage[numbers]{natbib}
+\usepackage{tocbibind}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{fancyhdr}
+
+% ---------------- SPACING & GRAPHICS ----------------
+\onehalfspacing
+\graphicspath{{Images/}}
+
+% ---------------- HEADER/FOOTER ----------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% ---------------- CHAPTER STYLE ----------------
+\titleformat{\chapter}[hang]
+{\normalfont\huge\bfseries}{\thechapter.}{1em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+
+% ---------------- LISTING STYLE ----------------
+\lstset{
+language=Python,
+basicstyle=\ttfamily\small,
+breaklines=true,
+frame=single,
+captionpos=b
+}
+
+\begin{document}
+
+\pagenumbering{roman}
+
+% ---------------- COVER PAGE ----------------
+\begin{titlepage}
+\centering
+\vspace*{-1in} 
+{\includegraphics[scale=.5]{logocosmos.png}}\\
+\vspace{0.8cm}
+{\large \textbf{POKHARA UNIVERSITY}\\
+\textbf{COSMOS COLLEGE OF MANAGEMENT AND TECHNOLOGY}\\
+\vspace{0.2cm}
+Department of ICT\\
+Pokhara, Nepal\\}
+
+\vspace{1.5cm}
+\rule{\linewidth}{1.2pt} \\
+\vspace{0.5cm}
+{\Huge \textbf{2D BALLOON POPPING GAME}} \\
+\vspace{0.4cm}
+\rule{\linewidth}{1.2pt} \\
+
+\vspace{1.5cm}
+{\large A Project Report Submitted in Partial Fulfillment of the Requirements for the Degree of \\ \textbf{Bachelor in Computer Engineering}}
+
+\vspace{2.5cm}
+\begin{minipage}{0.48\textwidth}
+\begin{flushleft} \large
+\emph{Submitted By:}\\
+\textbf{Bibek Subedi (240345)}\\
+\textbf{Biraj Regmi (240318)}\\
+\textbf{Birendra Kumar Rajmalla (240319)}\\
+\textbf{Dixit Acharya (240328)}
+\end{flushleft}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\begin{flushright} \large
+\emph{Submitted To:}\\
+\textbf{Department of ICT}\\
+\textbf{Cosmos College}
+\end{flushright}
+\end{minipage}
+
+\vfill
+{\large \textbf{February, 2026}}
+\end{titlepage}
+
+% ---------------- APPROVAL ----------------
+\chapter*{Page of Approval}
+\addcontentsline{toc}{chapter}{Page of Approval}
+
+\begin{center}
+\textbf{\uppercase{
+Pokhara University\\
+Cosmos College of Management and Technology\\
+Department of ICT}}
+\end{center}
+
+The undersigned certifies that this project report entitled
+\textbf{``2D Balloon Popping Game''}
+submitted by \textbf{Bibek Subedi, Biraj Regmi, Birendra Kumar Rajmalla, and Dixit Acharya}
+has been accepted in partial fulfillment of the requirements for the degree of Bachelor in Computer Engineering.
+
+\vspace{4cm}
+
+\begin{minipage}{.5\textwidth}
+Supervisor\\
+\textbf{Full Name}\\
+Department of ICT\\
+Cosmos College
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\raggedleft
+Internal Examiner\\
+\textbf{Full Name}\\
+Department of ICT\\
+Cosmos College
+\end{minipage}
+
+\vspace{1.5cm}
+\centerline{Date of Approval:}
+
+% ---------------- COPYRIGHT ----------------
+\chapter*{Copyright}
+\addcontentsline{toc}{chapter}{Copyright}
+The authors grant permission to the Department of ICT, Cosmos College of Management and Technology, and Pokhara University to reproduce and distribute copies of this report for academic purposes with proper acknowledgment.
+
+% ---------------- ACKNOWLEDGMENTS ----------------
+\chapter*{Acknowledgments}
+\addcontentsline{toc}{chapter}{Acknowledgments}
+The authors would like to express sincere gratitude to the project supervisor for continuous guidance and encouragement. We thank Cosmos College and Pokhara University for providing academic resources and support. Special thanks to our friends and family for their support.
+
+% ---------------- ABSTRACT ----------------
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+This project presents the design and implementation of a \textbf{2D Balloon Popping Game} developed using Python and Pygame as a practical application of fundamental Computer Graphics concepts. The primary objective of the project is to demonstrate raster graphics algorithms, geometric transformations, and physics-based motion in an interactive real-time system.
+
+The game follows a time-attack arcade model where the player controls a rotating launcher to pop elliptical balloons affected by gravity and wind forces. Unlike conventional game engines, the visual components of the game are rendered using manually implemented algorithms such as Bresenham’s Line Drawing Algorithm and the Midpoint Ellipse Algorithm. The rotation of the launcher is achieved through 2D transformation matrices, while collision detection is performed using a mathematical point-in-ellipse test to ensure pixel-level accuracy.
+
+The system is structured using modular object-oriented design principles, enabling efficient management of game states, physics simulation, and persistent high-score tracking. The game supports multiple durations, difficulty scaling, and real-time performance statistics, making it both technically robust and engaging.
+
+The successful implementation of this project validates the effectiveness of classical computer graphics algorithms in modern interactive applications. The project also provides a strong foundation for future enhancements such as advanced particle systems, shader-based rendering, and AI-controlled gameplay mechanics.
+
+\textbf{Keywords:} Computer Graphics, Bresenham Algorithm, Midpoint Ellipse, 2D Transformation, Pygame
+
+\clearpage
+\tableofcontents
+\listoffigures
+\listoftables
+
+% ---------------- ABBREVIATIONS ----------------
+\chapter*{List of Abbreviations}
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+\textbf{Abbreviation} & \textbf{Meaning} \\ \hline
+CG & Computer Graphics \\ \hline
+FPS & Frames Per Second \\ \hline
+HUD & Heads-Up Display \\ \hline
+OOP & Object-Oriented Programming \\ \hline
+\end{tabular}
+\end{center}
+
+\clearpage
+\pagenumbering{arabic}
+
+% ---------------- INTRODUCTION ----------------
+\chapter{Introduction}
+
+\section{Background}
+Computer Graphics (CG) is a fundamental field of computer science that deals with the generation, manipulation, and representation of visual information using computational techniques. It plays a crucial role in various applications such as video games, simulations, virtual reality, scientific visualization, and user interface design.
+
+In academic curricula, computer graphics concepts are often introduced through mathematical models and theoretical algorithms. However, students frequently lack opportunities to apply these concepts in interactive, real-time systems. This project bridges that gap by implementing classical computer graphics algorithms in a functional 2D game environment.
+
+The 2D Balloon Popping Game demonstrates how low-level graphics algorithms such as line drawing, ellipse generation, and geometric transformations can be effectively applied in an interactive system. By avoiding reliance on high-level graphics primitives, the project emphasizes conceptual understanding and practical implementation.
+
+\section{Problem Statement}
+Many beginner-level game development projects depend heavily on built-in rendering functions and game engines, which abstract away the underlying graphics processes. As a result, students often complete projects without a clear understanding of how shapes, motion, and collision detection are actually computed at the pixel level.
+
+This lack of hands-on implementation creates a disconnect between theoretical computer graphics concepts and real-world applications. There is a need for a project that integrates classical graphics algorithms into a complete, interactive system, allowing students to visualize and understand these concepts in action.
+
+\section{Objectives}
+\begin{itemize}
+\item Implement core computer graphics algorithms manually.
+\item Apply 2D transformations and physics-based motion.
+\item Develop an interactive, real-time game using Python.
+\item Demonstrate collision detection using mathematical models.
+\end{itemize}
+
+\section{Scope}
+The scope of this project is limited to 2D graphics rendering and interaction. It focuses on pixel-based drawing, object motion, and user input handling within a real-time environment. Advanced concepts such as 3D graphics, shaders, GPU programming, and complex physics engines are beyond the scope of this project.
+
+However, the system is designed in a modular and extensible manner, allowing future enhancements such as advanced visual effects, artificial intelligence-based gameplay, and performance optimization.
+
+% ---------------- LITERATURE REVIEW ----------------
+\chapter{Literature Review}
+
+\section{Related Theory}
+Classical raster graphics algorithms form the foundation of computer graphics. Bresenham’s Line Drawing Algorithm is widely used for efficiently drawing straight lines using integer arithmetic, minimizing computational overhead. Similarly, the Midpoint Ellipse Algorithm enables precise rendering of elliptical shapes by exploiting symmetry and incremental calculations.
+
+These algorithms are extensively discussed in standard computer graphics textbooks and academic research due to their efficiency and simplicity. Despite the availability of modern graphics libraries, understanding these algorithms remains essential for grasping the internal working of rendering systems.
+
+This project draws inspiration from these established theories and demonstrates their relevance in modern interactive applications by implementing them within a real-time game environment.
+
+% ---------------- METHODOLOGY ----------------
+\chapter{Methodology}
+
+The development of the project followed a systematic and modular methodology consisting of the following phases:
+
+\begin{itemize}
+\item Requirement Analysis: Identification of functional and non-functional requirements, including gameplay mechanics, rendering constraints, and performance goals.
+\item Algorithm Design: Selection and design of appropriate computer graphics algorithms for line drawing, ellipse rendering, and transformations.
+\item Implementation: Development of the game using Python and Pygame, with manual implementation of graphics algorithms.
+\item Testing: Functional testing to verify rendering accuracy, collision detection, and gameplay logic.
+\item Optimization: Performance tuning to maintain a stable frame rate and smooth gameplay experience.
+\end{itemize}
+
+% ---------------- SYSTEM DESIGN ----------------
+\chapter{System Design}
+
+The system is designed using an object-oriented approach to improve modularity and scalability. The major components of the system include:
+
+\begin{itemize}
+\item Rendering Module: Responsible for drawing lines, ellipses, and game objects using custom algorithms.
+\item Physics Module: Handles motion, gravity, and time-based updates.
+\item Game State Manager: Controls game flow, including start menu, gameplay, pause, and end screen.
+\item Collision Detection Module: Implements mathematical collision detection between balloons and projectiles.
+\item Score Management Module: Tracks player performance and maintains high scores based on game duration.
+\end{itemize}
+Flowcharts and algorithmic diagrams were used during the design phase to clearly define data flow and control logic.
+
+
+\section{System Requirements}
+
+\begin{table}[H]
+\centering
+\caption{Minimum System Requirements}
+\begin{tabular}{|l|l|}
+\hline
+Operating System & Windows / Linux / macOS \\ \hline
+Programming Language & Python 3.x \\ \hline
+Library & Pygame \\ \hline
+Processor & Intel i3 or equivalent \\ \hline
+RAM & 4 GB minimum \\ \hline
+\end{tabular}
+\end{table}
+
+% ---------------- MATHEMATICAL FORMULATION ----------------
+\chapter{Mathematical Formulation}
+
+\section{Bresenham’s Line Drawing Algorithm}
+\[
+\Delta x = x_1 - x_0, \quad \Delta y = y_1 - y_0
+\]
+\[
+p_0 = 2\Delta y - \Delta x
+\]
+
+\section{Midpoint Ellipse Algorithm}
+\[
+\frac{(x - x_c)^2}{r_x^2} + \frac{(y - y_c)^2}{r_y^2} = 1
+\]
+
+\section{2D Rotation Transformation}
+\[
+\begin{bmatrix} x' \\ y' \end{bmatrix} =
+\begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+\]
+
+\section{Physics-Based Motion}
+\[
+y = y_0 + v_y t + \frac{1}{2} g t^2, \quad x = x_0 + v_x t
+\]
+
+\section{Collision Detection Model}
+\[
+\frac{(x - x_c)^2}{r_x^2} + \frac{(y - y_c)^2}{r_y^2} \leq 1
+\]
+
+% ---------------- RESULTS ----------------
+\chapter{Results \& Discussion}
+\section{Results}
+The implemented system successfully renders all graphical elements using manually coded algorithms. The game operates at a stable frame rate of approximately 60 FPS under normal conditions. Elliptical balloons are accurately rendered using the Midpoint Ellipse Algorithm, and collisions are detected with high precision.
+
+The high-score system correctly records player performance based on selected game duration, and the user interface responds smoothly to player input.
+
+\section{Discussion}
+The results demonstrate that classical computer graphics algorithms are still highly effective when applied correctly. Despite their age, these algorithms provide excellent performance and precision in 2D environments. Implementing these techniques manually enhanced understanding of rendering pipelines, coordinate systems, and optimization strategies.
+
+
+
+% ---------------- CONCLUSION ----------------
+\chapter{Conclusions}
+This project successfully demonstrates the practical application of fundamental computer graphics concepts in an interactive real-time system. By developing a 2D Balloon Popping Game using manually implemented algorithms, the project reinforces theoretical knowledge through hands-on experience.
+
+The project meets all defined objectives and provides a strong foundation for further exploration of advanced graphics techniques.
+
+% ---------------- LIMITATIONS ----------------
+\chapter{Limitations and Future Enhancements}
+
+\section{Limitations}
+\begin{itemize}
+\item Limited to 2D graphics
+\item Minimal visual effects
+\item Simple gameplay mechanics
+\end{itemize}
+
+\section{Future Enhancements}
+\begin{itemize}
+\item Particle effects for balloon popping
+\item AI-based dynamic difficulty
+\item 3D rendering extension
+\item Multiplayer modes
+\end{itemize}
+
+% ---------------- REFERENCES ----------------
+\renewcommand{\bibname}{References}
+
+\begin{thebibliography}{9}
+\bibitem{foley}
+J. D. Foley, A. van Dam, S. K. Feiner, and J. F. Hughes,  
+\textit{Computer Graphics: Principles and Practice}, Addison-Wesley, 2nd Edition, 1996.
+
+\bibitem{bresenham}
+J. E. Bresenham,  
+``Algorithm for Computer Control of a Digital Plotter,'' IBM Systems Journal, Vol. 4, No. 1, pp. 25--30, 1965.
+
+\bibitem{pygame}
+Pygame Development Team,  
+\textit{Pygame Documentation}. Available at: \texttt{https://www.pygame.org/docs/}
+
+\bibitem{midpoint}
+D. Hearn and M. P. Baker, \textit{Computer Graphics with OpenGL}, Pearson Education, 3rd Edition, 2011.
+
+\bibitem{cgtext}
+Donald Hearn, M. Pauline Baker, and Warren Carithers, \textit{Computer Graphics with OpenGL}, Pearson Education, 4th Edition, 2016.
+\end{thebibliography}
+
+% ================= APPENDICES =================
+\appendix
+\renewcommand{\chaptername}{Appendix}
+
+\chapter{System Flowchart}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{flowchart.png}
+    \caption{System Flowchart}
+\end{figure}
+\chapter{Sample Source Code}
+
+\begin{lstlisting}[caption={Point-in-Ellipse Collision Detection}]
+def is_hit(x, y, cx, cy, rx, ry):
+    return ((x - cx)**2 / rx**2) + ((y - cy)**2 / ry**2) <= 1
+\end{lstlisting}
+
+\chapter{Game Screenshots}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{main_menu.png}
+\caption{Main Menu Screen}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{gameplay.png}
+\caption{Gameplay Screen}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{game_over.png}
+\caption{Game Over Screen}
+\end{figure}
+
+\end{document}
